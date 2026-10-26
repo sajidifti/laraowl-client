@@ -281,6 +281,10 @@ trait CapturesState
      */
     public function log(LogRecord $log): void
     {
+        if (! $this->enabled()) {
+            return;
+        }
+
         $this->ingest->write($this->sensor->log($log));
     }
 

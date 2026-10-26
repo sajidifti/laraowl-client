@@ -164,7 +164,10 @@ final class LaraowlClientServiceProvider extends ServiceProvider
             if ($this->app->runningInConsole()) {
                 $this->registerPublications();
                 $this->registerCommands();
-                $this->registerSchedule();
+
+                if ($this->core->enabled()) {
+                    $this->registerSchedule();
+                }
             }
         } catch (Throwable $e) {
             LaraowlClient::unrecoverableExceptionOccurred($e);
