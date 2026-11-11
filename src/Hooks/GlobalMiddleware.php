@@ -39,7 +39,7 @@ final class GlobalMiddleware
         $this->hasHandledRequest = true;
 
         try {
-            $this->laraowl->configureRequestSampling();
+            $this->laraowl->configureRequestSampling($request);
         } catch (Throwable $e) {
             LaraowlClient::unrecoverableExceptionOccurred($e);
         }

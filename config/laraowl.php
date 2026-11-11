@@ -38,6 +38,8 @@ return [
         'notifications' => env('LARAOWL_IGNORE_NOTIFICATIONS', false),
         'queries' => env('LARAOWL_IGNORE_QUERIES', false),
         'outgoing_requests' => env('LARAOWL_IGNORE_OUTGOING', false),
+        // Request paths never recorded, e.g. "up,health/*". LaraOwl's own uptime checks are always skipped.
+        'paths' => explode(',', env('LARAOWL_IGNORE_PATHS', '')),
     ],
 
     // Transmission Settings

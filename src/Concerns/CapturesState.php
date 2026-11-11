@@ -30,6 +30,7 @@ use Laraowl\Client\Hooks\GlobalMiddleware;
 use Laraowl\Client\Hooks\RouteMiddleware;
 use Laraowl\Client\State\CommandState;
 use Laraowl\Client\State\RequestState;
+use Laraowl\Client\Support\IgnoredRequests;
 use Laraowl\Client\Types\Str;
 use Monolog\LogRecord;
 use Psr\Http\Message\RequestInterface;
@@ -112,8 +113,14 @@ trait CapturesState
     /**
      * @internal
      */
-    public function configureRequestSampling(): void
+    public function configureRequestSampling(Request $request): void
     {
+        if (IgnoredRequests::matches($request, $this->config['filtering']['ignore_paths'] ?? [])) {
+            $this->dontSample();
+
+            return;
+        }
+
         $this->sample($this->config['sampling']['requests']);
     }
 

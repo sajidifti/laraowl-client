@@ -80,10 +80,12 @@ use Throwable;
 
 use function array_filter;
 use function array_keys;
+use function array_map;
 use function array_values;
 use function class_exists;
 use function defined;
 use function microtime;
+use function trim;
 
 /**
  * @internal
@@ -271,6 +273,7 @@ final class LaraowlClientServiceProvider extends ServiceProvider
                     'ignore_notifications' => (bool) ($this->laraowlConfig['ignore']['notifications'] ?? false),
                     'ignore_outgoing_requests' => (bool) ($this->laraowlConfig['ignore']['outgoing_requests'] ?? false),
                     'ignore_queries' => (bool) ($this->laraowlConfig['ignore']['queries'] ?? false),
+                    'ignore_paths' => array_values(array_filter(array_map(trim(...), (array) ($this->laraowlConfig['ignore']['paths'] ?? [])))),
                 ],
             ],
         ));
